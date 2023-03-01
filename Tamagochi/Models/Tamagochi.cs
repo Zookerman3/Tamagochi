@@ -23,32 +23,37 @@ namespace Game.Models
         public static void FeedPet(string petName, int food)
         {
             Console.WriteLine(food + "__________________-");
-            foreach (Tamagochi animal in _instances)
-            {
-                if (animal.Name.Equals(petName))
-                {
-                    food += 2;
-                    animal.Food = food;
-                }
-                Console.WriteLine(animal.Food);
-            }
-        }
 
-         public static void PraisePet(string petName, int attention)
+                foreach (Tamagochi animal in _instances)
+                {
+                    if (animal.Name.Equals(petName) && animal.Food <= 0)
+                    {
+                        food += 2;
+                        animal.Food = food;
+                        break;
+                    }
+                    else 
+                    Console.WriteLine(animal.Food);
+                }
+        }
+        public static void PraisePet(string petName, int attention)
         {
             Console.WriteLine(attention + "__________________-");
             foreach (Tamagochi animal in _instances)
             {
-                if (animal.Name.Equals(petName))
+                while (attention > 5)
                 {
-                    attention += 2;
-                    animal.Attention = attention;
+                    if (animal.Name.Equals(petName))
+                    {
+                        attention += 2;
+                        animal.Attention = attention;
+                    }
+                    return;
                 }
-                Console.WriteLine(animal.Attention);
             }
         }
 
-         public static void RestPet(string petName, int rest)
+        public static void RestPet(string petName, int rest)
         {
             Console.WriteLine(rest + "__________________-");
             foreach (Tamagochi animal in _instances)
@@ -57,11 +62,15 @@ namespace Game.Models
                 {
                     rest += 2;
                     animal.Rest = rest;
-                }
+                } else isDead(animal.Name);
                 Console.WriteLine(animal.Rest);
             }
         }
 
+        public static void isDead(string animal)
+        {
+            Console.WriteLine(animal);
+        }
         public static List<Tamagochi> GetAll()
         {
             return _instances;
@@ -77,3 +86,10 @@ namespace Game.Models
         }
     }
 }
+
+//     else if (animal.Attention <= 5)
+//     {
+//         _instances.RemoveAt(_instances.IndexOf(animal));
+//         return;
+//     }
+// }
